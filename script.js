@@ -47,14 +47,3 @@ window.addEventListener("scroll", function () {
   }
 });
 
-
-document.addEventListener('DOMContentLoaded', function () {
-      var typed = new Typed('#typed-name', {
-        strings: ["Hetvi Nilesh Natvarlal"],
-        typeSpeed: 50, // Typing speed in milliseconds
-        backSpeed: 30, // Backspacing speed in milliseconds
-        startDelay: 500, // Delay before starting to type
-        backDelay: 1000, // Delay before backspacing
-        loop: false, // Set to true for continuous typing
-      });
-    });
