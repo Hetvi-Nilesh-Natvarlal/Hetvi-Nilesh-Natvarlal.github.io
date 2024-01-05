@@ -186,8 +186,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease-in-out;
 }
-
+.about-banner:hover .img-cover 
+{
+    transform: scale(1.1); /* Scale the image on hover */
+}
 .section { padding-block: var(--section-padding); }
 
 .section-subtitle {
