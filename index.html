@@ -26,7 +26,14 @@
     href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typed.js@2.0.12">
-
+  <style>
+    .hero-title span,
+    .hero-title strong,
+    .hero-text {
+      display: inline-block;
+      opacity: 0;
+    }
+  </style>
 
 </head>
 
@@ -129,7 +136,6 @@
                   backDelay: 1000, // Delay before starting to backspace
                   startDelay: 500, // Delay before starting to type
                   showCursor: true, // Display cursor
-                  cursorChar: '|', // Cursor character
                   onComplete: function() {
                     // Fade in the hero text after typing is complete
                     document.querySelector('.hero-text').style.opacity = 1;
@@ -137,6 +143,16 @@
                 };
           
                 var typed = new Typed('.hero-title', options);
+                var textOptions = {
+                strings: ["| Data Analyst | Content Writer | Front-End Developer |"],
+                typeSpeed: 50,
+                backSpeed: 25,
+                backDelay: 1000,
+                startDelay: 2000, // Delay before starting to type the hero text
+                showCursor: true,
+              };
+
+              var textTyped = new Typed('.hero-text', textoptions);
               });
             </script>
             
