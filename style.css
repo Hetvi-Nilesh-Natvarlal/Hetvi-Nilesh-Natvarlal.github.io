@@ -442,7 +442,7 @@ body {
 
 
 /*-----------------------------------*\
-  #SKILLS
+  #SKILLS 
 \*-----------------------------------*/
 
 .skills .section-title { margin-block-end: 20px; }
@@ -451,36 +451,44 @@ body {
 
 .skills-list {
   display: grid;
-  gap: 25px;
+  /* Creates a responsive grid that adjusts columns based on screen size */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.skills-item {
+  background-color: var(--white-alpha-10, rgba(255, 255, 255, 0.05)); /* Subtle dark theme background */
+  padding: 15px;
+  border-radius: var(--radius-8, 8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.skills-item:hover {
+  background-color: var(--orange-soda);
+  transform: translateY(-3px);
+  border-color: var(--orange-soda);
 }
 
 .skills-item .wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centers the text inside the box */
   align-items: center;
-  margin-block-end: 10px;
 }
 
-.skills-title,
-.skills-data {
+.skills-title {
   color: var(--white);
   font-size: var(--fs-5);
   font-family: var(--ff-barlow);
   font-weight: var(--fw-600);
+  margin: 0;
+  text-align: center;
 }
 
-.skills-progress-box {
-  background-color: var(--white);
-  height: 8px;
-  border-radius: var(--radius-10);
+/* Hover effect: text turns black for readability if background is orange */
+.skills-item:hover .skills-title {
+  color: #000; 
 }
-
-.skills-progress {
-  background-color: var(--orange-soda);
-  height: 100%;
-  border-radius: inherit;
-}
-
 
 
 
