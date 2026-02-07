@@ -215,3 +215,20 @@ a { text-decoration: none; color: inherit; }
   opacity: 1;
   transform: translateY(0);
 }
+
+.grid-list {
+  display: grid;
+  gap: 30px;
+  margin-block-start: 40px;
+}
+
+@media (min-width: 768px) {
+  .grid-list { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background-color: var(--bg-independence);
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
