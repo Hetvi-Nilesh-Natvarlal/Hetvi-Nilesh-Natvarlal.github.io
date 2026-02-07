@@ -27,7 +27,16 @@ for (let i = 0; i < navbarLinks.length; i++) {
   });
 }
 
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("reveal");
+    }
+  });
+}, { threshold: 0.15 });
 
+document.querySelectorAll(".section, .portfolio-card, .skills-item")
+  .forEach(el => observer.observe(el));
 
 
 
