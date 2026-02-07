@@ -1,32 +1,31 @@
 'use strict';
 
-
-
 /**
- * navbar toggle
+ * Navbar Toggle Logic
  */
-
-const header = document.querySelector("[data-header]");
+const header = document.querySelector(".header"); // Changed to class selector for reliability
 const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
-
-navToggleBtn.addEventListener("click", function () {
-  header.classList.toggle("nav-active");
-  this.classList.toggle("active");
-});
-
-/**
- * toggle the navbar when click any navbar link
- */
-
 const navbarLinks = document.querySelectorAll("[data-nav-link]");
 
-for (let i = 0; i < navbarLinks.length; i++) {
-  navbarLinks[i].addEventListener("click", function () {
+// Toggle mobile menu
+if (navToggleBtn) {
+  navToggleBtn.addEventListener("click", function () {
     header.classList.toggle("nav-active");
-    navToggleBtn.classList.toggle("active");
+    this.classList.toggle("active");
   });
 }
 
+// Close menu when a link is clicked
+navbarLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    header.classList.remove("nav-active");
+    navToggleBtn.classList.remove("active");
+  });
+});
+
+/**
+ * Scroll Reveal
+ */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -34,6 +33,24 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.15 });
+
+document.querySelectorAll(".section, .portfolio-card, .skills-item")
+  .forEach(el => observer.observe(el));
+
+/**
+ * Sticky Header & Back to Top
+ */
+const backTopBtn = document.querySelector("[data-back-to-top]");
+
+window.addEventListener("scroll", function () {
+  if (window.scrollY >= 100) {
+    header.classList.add("active");
+    if (backTopBtn) backTopBtn.classList.add("active");
+  } else {
+    header.classList.remove("active");
+    if (backTopBtn) backTopBtn.classList.remove("active");
+  }
+});
 
 document.querySelectorAll(".section, .portfolio-card, .skills-item")
   .forEach(el => observer.observe(el));
