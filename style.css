@@ -6,7 +6,223 @@
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
+/* ===================================================
+   
+=================================================== */
 
+:root {
+
+  /* Premium pastel palette */
+
+  --bg-gradient-1: hsl(260, 70%, 95%);
+  --bg-gradient-2: hsl(200, 70%, 92%);
+  --bg-gradient-3: hsl(330, 70%, 94%);
+
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.6);
+
+  --accent-peach: hsl(15, 85%, 82%);
+  --accent-mint: hsl(150, 60%, 82%);
+  --accent-lilac: hsl(270, 70%, 88%);
+
+  --text-primary: hsl(240, 18%, 22%);
+  --text-soft: hsl(240, 10%, 45%);
+
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+  --shadow-hover: 0 25px 60px rgba(0,0,0,0.12);
+
+  --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* ===================================================
+   ANIMATED GRADIENT BACKGROUND
+=================================================== */
+
+body {
+  background: linear-gradient(
+    -45deg,
+    var(--bg-gradient-1),
+    var(--bg-gradient-2),
+    var(--bg-gradient-3)
+  );
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite;
+  color: var(--text-soft);
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* ===================================================
+   GLASSMORPHISM CARDS
+=================================================== */
+
+.about-banner,
+.portfolio-card,
+.blog-card .card-banner,
+.contact-card,
+.skills-item,
+.footer,
+.header {
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+
+  transition:
+    transform 0.5s var(--ease-apple),
+    box-shadow 0.5s var(--ease-apple),
+    background 0.4s ease;
+}
+
+/* Apple-style hover physics */
+
+.about-banner:hover,
+.portfolio-card:hover,
+.blog-card .card-banner:hover,
+.contact-card:hover,
+.skills-item:hover {
+
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: var(--shadow-hover);
+}
+
+
+/* ===================================================
+   PREMIUM BUTTON ANIMATION
+=================================================== */
+
+.btn-primary.blue {
+
+  background: linear-gradient(
+    135deg,
+    var(--accent-peach),
+    var(--accent-lilac)
+  );
+
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.5s var(--ease-apple);
+}
+
+/* Glow pulse */
+
+.btn-primary.blue::before {
+
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.6),
+    transparent 60%
+  );
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.btn-primary.blue:hover::before {
+  opacity: 0.6;
+}
+
+.btn-primary.blue:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+
+/* ===================================================
+   FLOATING HERO ANIMATION
+=================================================== */
+
+.hero-banner {
+  animation: floatHero 6s ease-in-out infinite;
+}
+
+@keyframes floatHero {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
+
+
+/* ===================================================
+   SCROLL REVEAL ANIMATION
+=================================================== */
+
+/* Default hidden state */
+
+.section,
+.portfolio-card,
+.skills-item,
+.blog-card,
+.contact-card {
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s var(--ease-apple),
+    transform 0.9s var(--ease-apple);
+}
+
+/* Reveal class (JS will add .reveal) */
+
+.reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+
+/* ===================================================
+   TEXT STYLING
+=================================================== */
+
+.h2,
+.h3,
+.logo,
+.hero-content,
+.skills-title,
+.contact-item-title,
+.blog-card .card-title {
+  color: var(--text-primary);
+}
+
+
+/* Accent text */
+
+.section-subtitle,
+.portfolio-card .card-subtitle,
+.blog-card .card-tag {
+  color: var(--accent-peach);
+  transition: color 0.3s ease;
+}
+
+.section-subtitle:hover {
+  color: var(--accent-mint);
+}
+
+
+/* ===================================================
+   BACK TO TOP PREMIUM POP
+=================================================== */
+
+.back-to-top {
+  transition: all 0.5s var(--ease-apple);
+}
+
+.back-to-top.active {
+  transform: rotate(0.25turn) scale(1.25);
+}
 :root {
 
   /**
