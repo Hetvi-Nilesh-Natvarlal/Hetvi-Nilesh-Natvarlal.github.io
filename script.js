@@ -1,48 +1,27 @@
 'use strict';
 
-/**
- * Navbar Toggle Logic
- */
-const header = document.querySelector(".header"); // Changed to class selector for reliability
+const header = document.querySelector(".header");
 const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
-const navbarLinks = document.querySelectorAll("[data-nav-link]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
 
-// Toggle mobile menu
+// 1. Mobile Menu Toggle
 if (navToggleBtn) {
-  navToggleBtn.addEventListener("click", function () {
+  navToggleBtn.addEventListener("click", () => {
     header.classList.toggle("nav-active");
-    this.classList.toggle("active");
   });
 }
 
-// Close menu when a link is clicked
-navbarLinks.forEach(link => {
+// 2. Close menu on link click
+navLinks.forEach(link => {
   link.addEventListener("click", () => {
     header.classList.remove("nav-active");
-    navToggleBtn.classList.remove("active");
   });
 });
 
-/**
- * Scroll Reveal
- */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("reveal");
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll(".section, .portfolio-card, .skills-item")
-  .forEach(el => observer.observe(el));
-
-/**
- * Sticky Header & Back to Top
- */
+// 3. Sticky Header and Back to Top
 const backTopBtn = document.querySelector("[data-back-to-top]");
 
-window.addEventListener("scroll", function () {
+window.addEventListener("scroll", () => {
   if (window.scrollY >= 100) {
     header.classList.add("active");
     if (backTopBtn) backTopBtn.classList.add("active");
@@ -52,24 +31,16 @@ window.addEventListener("scroll", function () {
   }
 });
 
-document.querySelectorAll(".section, .portfolio-card, .skills-item")
-  .forEach(el => observer.observe(el));
+// 4. Simple Reveal
+const sections = document.querySelectorAll(".section, .portfolio-card");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.style.opacity = "1";
+  });
+}, { threshold: 0.1 });
 
-
-
-/**
- * back to top & header
- */
-
-const backTopBtn = document.querySelector("[data-back-to-top]");
-
-window.addEventListener("scroll", function () {
-  if (window.scrollY >= 100) {
-    header.classList.add("active");
-    backTopBtn.classList.add("active");
-  } else {
-    header.classList.remove("active");
-    backTopBtn.classList.remove("active");
-  }
+sections.forEach(s => {
+  s.style.opacity = "0";
+  s.style.transition = "opacity 1s ease";
+  observer.observe(s);
 });
-
