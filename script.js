@@ -2,29 +2,35 @@
 
 /**
  * 1. NAVBAR & MENU LOGIC
- * Handles the mobile menu toggle and clicking on links
+ * Improved to handle the "data-navbar" attribute and body overflow
  */
 const header = document.querySelector("[data-header]");
 const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
+const navbar = document.querySelector("[data-navbar]");
 const navLinks = document.querySelectorAll("[data-nav-link]");
 
-if (navToggleBtn) {
-  navToggleBtn.addEventListener("click", function () {
-    header.classList.toggle("nav-active");
-    this.classList.toggle("active");
-  });
+const toggleNavbar = function () {
+  header.classList.toggle("nav-active");
+  navToggleBtn.classList.toggle("active");
+  // Optional: Prevent body scroll when menu is open
+  document.body.classList.toggle("nav-open");
 }
 
+if (navToggleBtn) {
+  navToggleBtn.addEventListener("click", toggleNavbar);
+}
+
+// Close menu when a link is clicked
 navLinks.forEach(link => {
   link.addEventListener("click", () => {
     header.classList.remove("nav-active");
     navToggleBtn?.classList.remove("active");
+    document.body.classList.remove("nav-open");
   });
 });
 
 /**
  * 2. STICKY HEADER & BACK TO TOP
- * Changes header state and shows "Back to Top" button after 100px scroll
  */
 const backTopBtn = document.querySelector("[data-back-to-top]");
 
@@ -38,31 +44,24 @@ window.addEventListener("scroll", activeElementOnScroll);
 
 /**
  * 3. MODERN REVEAL ON SCROLL
- * Uses IntersectionObserver for better performance than the 'scroll' event
+ * Optimized for the "data-reveal" attributes in the new HTML
  */
 const revealElements = document.querySelectorAll("[data-reveal]");
 
-const revealCallback = function (entries, observer) {
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("revealed");
-      // Stop observing once revealed to save resources
-      observer.unobserve(entry.target);
+      revealObserver.unobserve(entry.target);
     }
   });
-}
+}, { threshold: 0.1 });
 
-const revealObserver = new IntersectionObserver(revealCallback, {
-  threshold: 0.15
-});
-
-revealElements.forEach(element => {
-  revealObserver.observe(element);
-});
+revealElements.forEach(element => revealObserver.observe(element));
 
 /**
  * 4. CONTACT FORM HANDLING
- * Basic logic to handle form submission
+ * Matches the ".btn" inside the new form structure
  */
 const contactForm = document.querySelector(".contact-form");
 
@@ -70,40 +69,40 @@ if (contactForm) {
   contactForm.addEventListener("submit", function (e) {
     e.preventDefault();
     
-    // Get form data (you can connect this to a service like EmailJS or Formspree)
-    const formData = new FormData(this);
-    console.log("Form Submitted:", Object.fromEntries(formData));
-
-    // Simple success feedback
     const submitBtn = this.querySelector(".btn");
     const originalText = submitBtn.textContent;
     
     submitBtn.textContent = "Sending...";
     submitBtn.style.pointerEvents = "none";
 
+    // Simulate form submission
     setTimeout(() => {
       submitBtn.textContent = "Message Sent!";
+      submitBtn.style.backgroundColor = "#b8d8e0"; // Soft pastel blue success color
       this.reset();
       
       setTimeout(() => {
         submitBtn.textContent = originalText;
         submitBtn.style.pointerEvents = "auto";
+        submitBtn.style.backgroundColor = ""; // Reset to CSS default
       }, 3000);
     }, 1500);
   });
 }
 
 /**
- * 5. SMOOTH SCROLL OFFSET
- * Ensures when you click a nav link, the header doesn't cover the section title
+ * 5. SMOOTH SCROLL OFFSET FIX
+ * Important: Subtracts header height so sections aren't cut off at the top
  */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    e.preventDefault();
     const targetId = this.getAttribute('href');
+    if (targetId === "#") return;
+
     const targetElement = document.querySelector(targetId);
 
     if (targetElement) {
+      e.preventDefault();
       const headerHeight = header.offsetHeight;
       const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
