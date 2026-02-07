@@ -92,23 +92,73 @@ body {
 .h3 { font-size: 2.8rem; margin-bottom: 15px; }
 
 /*-----------------------------------*\
-  #HEADER
+  /*-----------------------------------*\
+  #FIXED NAVIGATION HEADER
 \*-----------------------------------*/
 
 .header {
   position: fixed;
-  top: 20px; left: 50%; transform: translateX(-50%);
-  width: 95%; max-width: var(--container-width);
-  height: 70px; z-index: 100;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding-inline: 30px;
-  border: 1px solid rgba(255,255,255,0.5);
+  top: 25px; 
+  left: 50%; 
+  transform: translateX(-50%); /* Perfectly centers the header */
+  width: 95%; 
+  max-width: var(--container-width); /* Aligns with your content width */
+  height: 80px; 
+  z-index: 1000;
+  
+  /* Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  
+  /* Layout */
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; /* Pushes Logo left, Nav right */
+  padding: 0 40px; 
+  border-radius: 100px; /* Pill shape */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-.logo { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--text-main); }
+.logo { 
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 2.4rem; 
+  font-weight: 900; 
+  color: var(--text-main);
+  letter-spacing: -1px;
+}
+
+.navbar-list {
+  display: flex;
+  align-items: center;
+  gap: 35px; /* Consistent spacing between links */
+}
+
+.navbar-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: var(--color-lilac);
+  transform: translateY(-2px);
+}
+
+/* Responsive fix: If screen is small, make header simpler */
+@media (max-width: 768px) {
+  .header {
+    height: 70px;
+    padding: 0 25px;
+  }
+  .navbar-list { gap: 15px; }
+  .navbar-link { font-size: 1.2rem; }
+}
 
 /*-----------------------------------*\
   #HERO (IMAGE & LAYOUT FIX)
