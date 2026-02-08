@@ -2,7 +2,7 @@
 
 /**
  * 1. NAVBAR & MENU LOGIC
- * Improved to handle the "data-navbar" attribute and body overflow
+ * Handles the mobile toggle and adds a click-outside-to-close feature
  */
 const header = document.querySelector("[data-header]");
 const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
@@ -12,7 +12,6 @@ const navLinks = document.querySelectorAll("[data-nav-link]");
 const toggleNavbar = function () {
   header.classList.toggle("nav-active");
   navToggleBtn.classList.toggle("active");
-  // Optional: Prevent body scroll when menu is open
   document.body.classList.toggle("nav-open");
 }
 
@@ -27,6 +26,18 @@ navLinks.forEach(link => {
     navToggleBtn?.classList.remove("active");
     document.body.classList.remove("nav-open");
   });
+});
+
+// Close menu when clicking outside of the navbar
+document.addEventListener("click", function (event) {
+  const isClickInsideNavbar = navbar.contains(event.target);
+  const isClickInsideBtn = navToggleBtn.contains(event.target);
+
+  if (!isClickInsideNavbar && !isClickInsideBtn && header.classList.contains("nav-active")) {
+    header.classList.remove("nav-active");
+    navToggleBtn.classList.remove("active");
+    document.body.classList.remove("nav-open");
+  }
 });
 
 /**
@@ -44,7 +55,7 @@ window.addEventListener("scroll", activeElementOnScroll);
 
 /**
  * 3. MODERN REVEAL ON SCROLL
- * Optimized for the "data-reveal" attributes in the new HTML
+ * Uses IntersectionObserver to trigger the [data-reveal] CSS animations
  */
 const revealElements = document.querySelectorAll("[data-reveal]");
 
@@ -52,16 +63,17 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("revealed");
+      // Stop observing after it has revealed once for better performance
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.15 });
 
 revealElements.forEach(element => revealObserver.observe(element));
 
 /**
  * 4. CONTACT FORM HANDLING
- * Matches the ".btn" inside the new form structure
+ * Updated to match the new high-contrast "Coral/Peach" theme
  */
 const contactForm = document.querySelector(".contact-form");
 
@@ -72,19 +84,25 @@ if (contactForm) {
     const submitBtn = this.querySelector(".btn");
     const originalText = submitBtn.textContent;
     
+    // Change state to "Sending"
     submitBtn.textContent = "Sending...";
     submitBtn.style.pointerEvents = "none";
+    submitBtn.style.opacity = "0.8";
 
-    // Simulate form submission
+    // Simulate form submission (e.g., to EmailJS or Formspree)
     setTimeout(() => {
       submitBtn.textContent = "Message Sent!";
-      submitBtn.style.backgroundColor = "#b8d8e0"; // Soft pastel blue success color
+      // Match the success color to your new secondary blue or a soft green
+      submitBtn.style.background = "linear-gradient(135deg, #89c4d1, #5ba4b5)"; 
+      submitBtn.style.opacity = "1";
+      
       this.reset();
       
+      // Revert button back to original state after 3 seconds
       setTimeout(() => {
         submitBtn.textContent = originalText;
         submitBtn.style.pointerEvents = "auto";
-        submitBtn.style.backgroundColor = ""; // Reset to CSS default
+        submitBtn.style.background = ""; // Reverts to CSS primary gradient
       }, 3000);
     }, 1500);
   });
@@ -92,7 +110,7 @@ if (contactForm) {
 
 /**
  * 5. SMOOTH SCROLL OFFSET FIX
- * Important: Subtracts header height so sections aren't cut off at the top
+ * Corrects the scroll position so the sticky header doesn't cover section titles
  */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
@@ -103,6 +121,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     if (targetElement) {
       e.preventDefault();
+      
+      // Calculate header height dynamically
       const headerHeight = header.offsetHeight;
       const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
