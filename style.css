@@ -157,7 +157,45 @@ img { width: 100%; height: auto; display: block; }
   background: none; border: none; font-size: 4rem; color: var(--text-main);
   cursor: pointer;
 }
+/* Ensure the navbar is hidden off-screen on mobile */
+@media (max-width: 991px) {
+  .navbar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hides it to the right */
+    width: 100%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--card-bg);
+    padding: 100px 40px;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    z-index: 100;
+  }
 
+  /* This class is added by JS when you click the menu button */
+  .header.nav-active .navbar {
+    right: 0; /* Slides the menu into view */
+  }
+
+  /* Prevent background scrolling when menu is open */
+  body.nav-open {
+    overflow: hidden;
+  }
+}
+
+/* Desktop: Reset navbar to horizontal */
+@media (min-width: 992px) {
+  .navbar {
+    all: unset;
+    display: block;
+  }
+  .navbar-list {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+}
 /*-----------------------------------*\
   #HERO & ABOUT (Un-clubbing Layout)
 \*-----------------------------------*/
@@ -240,6 +278,40 @@ img { width: 100%; height: auto; display: block; }
   outline: none;
   background: white;
 }
+
+/*-----------------------------------*\
+  #SKILLS
+\*-----------------------------------*/
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  list-style: none; /* Removes bullets */
+  padding: 0;
+  margin-top: 30px;
+}
+
+.skills-item {
+  background: white;
+  color: var(--text-main);
+  padding: 12px 25px;
+  border-radius: 50px; /* Makes them pill-shaped */
+  font-weight: 600;
+  font-size: 1.5rem;
+  border: 1px solid var(--secondary-light);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  cursor: default;
+}
+
+.skills-item:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
 
 /*-----------------------------------*\
   #DESKTOP VIEW (992px+)
