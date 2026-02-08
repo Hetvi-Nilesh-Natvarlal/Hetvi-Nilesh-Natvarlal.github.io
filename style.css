@@ -82,6 +82,43 @@ img { width: 100%; height: auto; display: block; }
 }
 
 /*-----------------------------------*\
+  #SECTION HEADERS (UNIFIED STYLE)
+\*-----------------------------------*/
+
+.section-subtitle {
+  color: var(--primary);
+  font-family: var(--ff-barlow);
+  font-size: 2.8rem; /* Large and noticeable */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 8px; /* High-end architectural spacing */
+  margin-block-end: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the text and the line below it */
+  text-align: center;
+}
+
+/* The decorative underline that marks a new section */
+.section-subtitle::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 5px;
+  background: var(--primary);
+  margin-block-start: 12px;
+  border-radius: 10px;
+}
+
+/* Align section headers for desktop side-by-side layouts */
+@media (min-width: 992px) {
+  .section:not(.hero) .section-subtitle {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/*-----------------------------------*\
   #HERO SECTION
 \*-----------------------------------*/
 .hero { padding-block: 180px 100px; }
