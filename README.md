@@ -37,22 +37,13 @@ This portfolio is built with a <strong>Modern Pastel & Coral</strong> aesthetic.
 <summary><strong>🛠️ Click to view Technical Stack</strong></summary>
 <br>
 
-| Tech | Role |
+| TECH | ROLE |
 | :--- | :--- |
 | **HTML5** | Semantic structure & SEO. |
 | **CSS3** | Flexbox, Grid, & Custom Variables. |
 | **JavaScript** | Scroll-reveal & Navigation logic. |
 | **IonIcons** | High-fidelity vector iconography. |
 </details>
-
----
-
-### 📂 Repository Structure
-```bash
-├── 📄 index.html        # Main Entry Point
-├── 🎨 style.css         # Custom UI Logic & Animations
-├── ⚙️ script.js         # Interactive Reveal Logic
-└── 💼 Resume.pdf        # Professional CV
 
 ---
 
